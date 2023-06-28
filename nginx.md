@@ -8,8 +8,16 @@
 
 `vim /etc/nginx/nginx.conf`
 
+`nginx -t`
+
 ```
-log_format servlog '$server_name to: $upstream_addr [$request] '
+firewall-cmd --zone=public --permanent --add-service=http
+firewall-cmd --zone=public --permanent --add-service=https
+firewall-cmd --reload
+```
+
+```
+log_format servlog '$remote_addr to: $upstream_addr [$request] '
         'upstream_response_time $upstream_response_time '
         'msec $msec request_time $request_time '
 ```
@@ -23,7 +31,7 @@ upstream backend{
 ```
 
 ```
-server_name  maipi-test.lamolina.edu.pe;
+server_name  -.lamolina.edu.pe;
 ```
 
 ```
@@ -45,9 +53,25 @@ location / {
 
 `sudo snap install core; sudo snap refresh core`
 
+## Install certbot
+
 `snap install --classic certbot`
 
 `ln -s /snap/bin/certbot /usr/bin/certbot`
+
+`certbot --nginx`
+
+### Test automatic renewal
+
+`certbot renew --dry-run`
+
+Ver si esta instalado correctamente
+
+```
+/etc/crontab/
+/etc/cron.*/*
+systemctl list-timers
+```
 
 Por ejemplo, puedes ejecutar el comando grep nginx /var/log/audit/audit.log | audit2allow -M nginx-custom para generar una política personalizada basada en los registros de auditoría relacionados con NGINX y luego aplicarla con semodule -i nginx-custom.pp.
 
@@ -62,3 +86,5 @@ Por ejemplo, puedes ejecutar el comando grep nginx /var/log/audit/audit.log | au
 `certbot --nginx`
 
 [X] A
+
+#### ~~docker cp RUTA_LOCAL NOMBRE_CONTENEDOR:RUTA_DEL_CONTENEDOR~~
