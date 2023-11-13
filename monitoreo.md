@@ -196,14 +196,6 @@ El monitoreo de sistemas y aplicaciones es esencial para garantizar la confiabil
    docker restart grafana
    ```
 
-2. **Documentación de Contenedores Docker:**
-
-   Documenta los detalles de los contenedores Docker utilizados para Prometheus y Grafana, incluyendo los comandos de ejecución y las rutas de montaje de volúmenes.
-
-3. **Procedimientos de Mantenimiento:**
-
-   Documenta los procedimientos de mantenimiento, como la actualización de contenedores Docker y la configuración de alertas.
-
 ### Monitoreo de servidores
 
 a. Agregar monitoreo con Node Exporter
