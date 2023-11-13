@@ -217,7 +217,7 @@ b. Monitoreo de paginas web
 
 a. Alerta via Gmail
 
-# Configuración de Alertas desde Grafana vía Gmail
+## Configuración de Alertas desde Grafana vía Gmail
 
 ## Requisitos Previos
 
@@ -281,7 +281,7 @@ a. Alerta via Gmail
 
 b. Alertas via Slack
 
-# Configuración de Alertas desde Grafana vía Slack
+## Configuración de Alertas desde Grafana vía Slack
 
 ## Requisitos Previos
 
