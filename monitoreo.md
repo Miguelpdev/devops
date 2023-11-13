@@ -1,6 +1,6 @@
-## Documentación de Monitoreo con Prometheus y Grafana en Contenedores Docker
+## Documentación de Monitoreo con Prometheus y Grafana
 
-El monitoreo de sistemas y aplicaciones en entornos contenerizados es esencial para garantizar la confiabilidad y el rendimiento. En este documento, describiremos cómo configurar y utilizar Prometheus y Grafana en contenedores Docker para el monitoreo.
+El monitoreo de sistemas y aplicaciones es esencial para garantizar la confiabilidad y el rendimiento. En este documento se describira cómo configurar y utilizar Prometheus y Grafana en contenedores Docker para el monitoreo.
 
 ### Requisitos Previos
 
@@ -221,9 +221,9 @@ a. Agregar monitoreo con Node Exporter
 - Instalar docker en el servidor
 - Ejecutar el siguiente comando para descargar node exporter y ejecutarlo
 
-```
-docker run -d -p 9100:9100 --name=node-exporter prom/node-exporter --web.listen-address="0.0.0.0:9100"
-```
+  ```
+  docker run -d -p 9100:9100 --name=node-exporter prom/node-exporter --web.listen-address="0.0.0.0:9100"
+  ```
 
 - En el servidor de monitoreo, en el archivo prometheus.yml agregar la configuracion dentro de scrape_configs agregando el nombre en job_name y la ip en targets indicando el puerto, en este caso 9100.
 
@@ -391,3 +391,21 @@ docker run -p 9000:9000 -p 6379:6379 amauta-docker3
 docker run -d -p 9000:9000 -p 6379:6379 amauta-docker6
 
 ```
+
+# Mejoras en el sistema de monitoreo
+
+a. Inicio automatico de los contenedores de monitoreo en los servidores
+
+En el archivo start_monitor.sh agregar el siguiente comando:
+
+```
+docker start node-exporter
+```
+
+Y luego en crontab, agregar la tarea para que al reiniciar el servidor se ejecute el archivo start_monitor.sh
+
+```
+@reboot /lost+found/start_monitor.sh
+```
+
+Al realizar esta configuracion se podra preveer ante cualquier caida del servidor. Y asi al prender el servidor el contenedor de monitoreo se iniciara.
