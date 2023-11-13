@@ -200,7 +200,7 @@ El monitoreo de sistemas y aplicaciones es esencial para garantizar la confiabil
 
 a. Agregar monitoreo con Node Exporter
 
-- Instalar docker en el servidor
+- Instalar docker en el servidor cliente
 - Ejecutar el siguiente comando para descargar node exporter y ejecutarlo
 
   ```
