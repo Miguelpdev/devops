@@ -235,6 +235,70 @@ b. Monitoreo de paginas web
 
 a. Alerta via Gmail
 
+Configurar alertas desde Grafana vía Gmail implica varios pasos. Aquí te proporciono una guía paso a paso para documentar el proceso:
+
+# Configuración de Alertas desde Grafana vía Gmail
+
+## Requisitos Previos
+
+1. **Grafana Instalado**: Asegúrate de tener Grafana instalado y configurado en tu servidor.
+
+2. **Configuración de SMTP en Grafana**: Necesitas tener configurado el servidor SMTP en Grafana para enviar correos electrónicos a través de Gmail. Puedes acceder a esta configuración en la interfaz web de Grafana en la sección de "Configuration" > "Notification channels".
+
+3. **Cuenta de Gmail**: Necesitarás una cuenta de Gmail para enviar correos electrónicos desde Grafana.
+   Configuración de Gmail:
+   Habilitar el Acceso a Aplicaciones Menos Seguras:
+   Accede a la configuración de seguridad de tu cuenta de Gmail.
+   Habilita la opción de "Acceso a aplicaciones menos seguras". Esto permitirá que Grafana envíe correos electrónicos a través de tu cuenta.
+
+## Paso 1: Configuración de SMTP en Grafana
+
+1. Inicia sesión en Grafana.
+
+2. Navega a "Configuration" > "Notification channels".
+
+3. Haz clic en "Add Channel" y selecciona "Email" como tipo de canal.
+
+4. Completa los detalles del servidor SMTP:
+
+   - **Type**: Elige "Email".
+   - **Name**: Un nombre descriptivo para el canal.
+   - **Address**: La dirección de correo electrónico desde la que se enviarán las alertas.
+   - **SMTP Host**: `smtp.gmail.com`.
+   - **SMTP Port**: `587` (puerto de Gmail para TLS).
+   - **Username**: Tu dirección de correo electrónico de Gmail.
+   - **Password/Secure fields**: La contraseña de tu cuenta de Gmail.
+
+5. Haz clic en "Add" para guardar la configuración.
+
+## Paso 2: Configuración de Alertas en Grafana
+
+1. Abre o crea un tablero en Grafana.
+
+2. Añade un panel que desees supervisar.
+
+3. Haz clic en el panel y selecciona "Edit".
+
+4. En la pestaña "Alert", haz clic en "Add Alert".
+
+5. Configura las condiciones de la alerta según tus necesidades.
+
+6. En la sección "Send to", elige el canal de notificación que configuraste previamente.
+
+7. Define las opciones de notificación, como el intervalo de repetición y la duración de la condición de alerta.
+
+8. Haz clic en "Apply" para guardar la configuración del panel.
+
+## Paso 3: Prueba de Alertas
+
+1. Haz clic en "Apply" para guardar los cambios en el tablero.
+
+2. Simula una condición de alerta para verificar si las notificaciones se envían correctamente.
+
+3. Revisa la cuenta de correo electrónico de Gmail para confirmar que has recibido la alerta.
+
+¡Listo! Ahora deberías tener configuradas las alertas desde Grafana vía Gmail. Asegúrate de monitorear regularmente las alertas y ajustar la configuración según sea necesario.
+
 ### Dockerizar aplicacion de amauta
 
 ```
