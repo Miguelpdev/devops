@@ -55,16 +55,6 @@ El monitoreo de sistemas y aplicaciones es esencial para garantizar la confiabil
 
    Accede a la interfaz web de Grafana en `http://localhost:3000` (o la dirección IP de tu máquina anfitriona) y configura las credenciales de administrador. Luego, configura una fuente de datos para Prometheus en Grafana, utilizando la URL de Prometheus en Docker.
 
-### Configuración de Alertas
-
-1. **Definición de Reglas de Alerta:**
-
-   Utiliza el archivo `prometheus.yml` para definir reglas de alerta basadas en métricas específicas.
-
-2. **Configuración de Notificaciones en Grafana:**
-
-   Configura notificaciones en Grafana para recibir alertas por correo electrónico, Slack u otros canales de comunicación.
-
 ### Documentación
 
 1. **Registro de Configuración:**
