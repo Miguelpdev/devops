@@ -1,0 +1,262 @@
+## Documentación de Monitoreo con Prometheus y Grafana en Contenedores Docker
+
+### Introducción
+
+El monitoreo de sistemas y aplicaciones en entornos contenerizados es esencial para garantizar la confiabilidad y el rendimiento. En este documento, describiremos cómo configurar y utilizar Prometheus y Grafana en contenedores Docker para el monitoreo.
+
+### Requisitos Previos
+
+- Docker instalado en la máquina anfitriona.
+- Acceso a los sistemas y aplicaciones que se desean monitorear.
+
+### Configuración de Prometheus en Docker
+
+1. **Descarga la imagen de Prometheus:**
+
+   Utiliza el siguiente comando para descargar la imagen oficial de Prometheus desde Docker Hub:
+
+   ```bash
+   docker pull prom/prometheus
+   ```
+
+2. **Configura el archivo `prometheus.yml`:**
+
+   Crea un archivo `prometheus.yml` que defina los objetivos de monitoreo y las reglas de alerta. Asegúrate de que las rutas a los objetivos sean las correctas en el archivo de configuración.
+
+3. **Ejecuta Prometheus en Docker:**
+
+   Ejecuta Prometheus en un contenedor Docker con el siguiente comando:
+
+   ```bash
+   docker run -d -p 9090:9090 -v /ruta/local/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
+   ```
+
+   Asegúrate de que `/ruta/local/prometheus.yml` sea la ruta local al archivo de configuración `prometheus.yml` que creaste.
+
+### Configuración de Grafana en Docker
+
+1. **Descarga la imagen de Grafana:**
+
+   Descarga la imagen oficial de Grafana desde Docker Hub con el siguiente comando:
+
+   ```bash
+   docker pull grafana/grafana
+   ```
+
+2. **Ejecuta Grafana en Docker:**
+
+   Ejecuta Grafana en un contenedor Docker con el siguiente comando:
+
+   ```bash
+   docker run -d -p 3000:3000 grafana/grafana
+   ```
+
+   Esto iniciará Grafana en el puerto 3000 dentro del contenedor.
+
+3. **Configura Grafana:**
+
+   Accede a la interfaz web de Grafana en `http://localhost:3000` (o la dirección IP de tu máquina anfitriona) y configura las credenciales de administrador. Luego, configura una fuente de datos para Prometheus en Grafana, utilizando la URL de Prometheus en Docker.
+
+### Configuración de Alertas
+
+1. **Definición de Reglas de Alerta:**
+
+   Utiliza el archivo `prometheus.yml` para definir reglas de alerta basadas en métricas específicas.
+
+2. **Configuración de Notificaciones en Grafana:**
+
+   Configura notificaciones en Grafana para recibir alertas por correo electrónico, Slack u otros canales de comunicación.
+
+### Documentación
+
+1. **Registro de Configuración:**
+
+   Mantén un registro detallado de la configuración de Prometheus y Grafana en Docker, incluyendo versiones, cambios y ajustes realizados.
+
+   #### Archivo docker-compose.yml
+
+   ```
+    version: "3.7"
+    volumes:
+    grafana-data:
+    prometheus-data:
+
+    services:
+    grafana:
+        image: grafana/grafana:8.0.6
+        container_name: grafana
+        restart: unless-stopped
+        volumes:
+        - grafana-data:/var/lib/grafana
+        ports:
+        - 3000:3000
+
+    prometheus:
+        image: prom/prometheus:v2.28.1
+        container_name: prometheus
+        restart: unless-stopped
+        volumes:
+        - ./prometheus.yml:/etc/prometheus/prometheus.yml
+        - prometheus-data:/prometheus
+        ports:
+        - 9090:9090
+        command:
+        - '--config.file=/etc/prometheus/prometheus.yml'
+        - '--storage.tsdb.path=/prometheus'
+        - '--storage.tsdb.retention.time=1y'
+        - '--web.enable-lifecycle'
+   ```
+
+   #### Archivo prometheus.yml
+
+   ```
+   global:
+   scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+   evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+
+   scrape_configs:
+   - job_name: 'prometheus'
+       static_configs:
+       - targets: ['172.0.0.00:9090']
+
+   - job_name: 'bd_test'
+       static_configs:
+       - targets: ['172.0.0.00:9100']
+
+   - job_name: 'amauta_test'
+       static_configs:
+       - targets: ['172.0.0.00:9100']
+
+   - job_name: 'maipi_test'
+       static_configs:
+       - targets: ['172.0.0.00:9100']
+
+   - job_name: 'maipi'
+       static_configs:
+       - targets: ['172.0.0.00:9100']
+
+   - job_name: 'delfin'
+       static_configs:
+       - targets: ['172.0.0.00:9100','172.0.0.00:9100']
+
+   - job_name: 'recaudacion'
+       static_configs:
+       - targets: ['172.0.0.00:9100']
+
+   - job_name: 'conecta'
+       static_configs:
+       - targets: ['172.0.0.00:9100']
+
+   - job_name: 'websocket'
+       static_configs:
+       - targets: ['172.0.0.00:9100']
+
+   - job_name: 'matricula'
+       static_configs:
+       - targets: ['172.0.0.00:9100']
+
+   - job_name: 'amauta'
+       static_configs:
+       - targets: ['172.0.0.00:9100']
+
+   - job_name: 'cap-test'
+       static_configs:
+       - targets: ['172.0.0.00:9100']
+
+   - job_name: 'viceacad'
+       static_configs:
+       - targets: ['172.0.0.00:9100']
+
+   - job_name: 'blackbox'
+       metrics_path: /probe
+       params:
+       module: [http_2xx]  # Look for a HTTP 200 response.
+       static_configs:
+       - targets:
+           - https://amauta.lamolina.edu.pe   # Target to probe with https.
+           - https://maipi.lamolina.edu.pe
+           - https://matricula.lamolina.edu.pe
+           - https://conecta.lamolina.edu.pe
+           - https://viceacad.lamolina.edu.pe
+           - https://maipi-test.lamolina.edu.pe
+           - https://amauta-test.lamolina.edu.pe
+           - https://matricula-test.lamolina.edu.pe
+       relabel_configs:
+       - source_labels: [__address__]
+           target_label: __param_target
+       - source_labels: [__param_target]
+           target_label: instance
+       - target_label: __address__
+           replacement: 172.0.0.00:9115  # The blackbox exporter's real hostname:port.
+   ```
+
+   #### Archivo blackbox.yml
+
+   ```
+   modules:
+   http_2xx:
+     prober: http
+     http:
+       preferred_ip_protocol: "ip4"
+   ```
+
+   #### Comandos para reiniciar los servicios
+
+   ```
+   docker restart blackbox
+   docker restart prometheus
+   docker restart grafana
+   ```
+
+2. **Documentación de Contenedores Docker:**
+
+   Documenta los detalles de los contenedores Docker utilizados para Prometheus y Grafana, incluyendo los comandos de ejecución y las rutas de montaje de volúmenes.
+
+3. **Procedimientos de Mantenimiento:**
+
+   Documenta los procedimientos de mantenimiento, como la actualización de contenedores Docker y la configuración de alertas.
+
+### Monitoreo de servidores
+
+a. Agregar monitoreo con Node Exporter
+
+- Instalar docker en el servidor
+- Ejecutar el siguiente comando para descargar node exporter y ejecutarlo
+
+docker run -d -p 9100:9100 --name=node-exporter prom/node-exporter --web.listen-address="0.0.0.0:9100"
+
+- En el servidor de monitoreo, en el archivo prometheus.yml agregar la configuracion dentro de scrape_configs agregando el nombre en job_name y la ip en targets indicando el puerto, en este caso 9100.
+
+b. Monitoreo de paginas web
+
+- Agregar la url de la pagina web a monitorear indicando si maneja el protocolo http o https en el archivo de prometheus.yml en la seccion targets.
+
+### Alertas con Grafana
+
+a. Alerta via Gmail
+
+### Dockerizar aplicacion de amauta
+
+```
+FROM openjdk:8-jdk-alpine
+
+WORKDIR /app
+COPY target/amauta.jar app.jar
+RUN apk add --update redis
+EXPOSE 6379
+EXPOSE 9000
+CMD redis-server & java -jar app.jar
+```
+
+```
+---------Crear una imagen y luego enviarlo a otro servidor
+docker build -t amauta-docker3 .
+docker save amauta-docker3 > /home/informatica/Descargas/dockeramauta.tar
+scp /home/informatica/Descargas/dockeramauta.tar admin@172.16.0.178:/home/admin
+
+---------CRear una imagen y correrlo
+docker build -t amauta-docker3 .
+docker run -p 9000:9000 -p 6379:6379 amauta-docker3
+docker run -d -p 9000:9000 -p 6379:6379 amauta-docker6
+
+```
