@@ -1,7 +1,5 @@
 ## Documentación de Monitoreo con Prometheus y Grafana en Contenedores Docker
 
-### Introducción
-
 El monitoreo de sistemas y aplicaciones en entornos contenerizados es esencial para garantizar la confiabilidad y el rendimiento. En este documento, describiremos cómo configurar y utilizar Prometheus y Grafana en contenedores Docker para el monitoreo.
 
 ### Requisitos Previos
@@ -223,7 +221,9 @@ a. Agregar monitoreo con Node Exporter
 - Instalar docker en el servidor
 - Ejecutar el siguiente comando para descargar node exporter y ejecutarlo
 
+```
 docker run -d -p 9100:9100 --name=node-exporter prom/node-exporter --web.listen-address="0.0.0.0:9100"
+```
 
 - En el servidor de monitoreo, en el archivo prometheus.yml agregar la configuracion dentro de scrape_configs agregando el nombre en job_name y la ip en targets indicando el puerto, en este caso 9100.
 
@@ -234,8 +234,6 @@ b. Monitoreo de paginas web
 ### Alertas con Grafana
 
 a. Alerta via Gmail
-
-Configurar alertas desde Grafana vía Gmail implica varios pasos. Aquí te proporciono una guía paso a paso para documentar el proceso:
 
 # Configuración de Alertas desde Grafana vía Gmail
 
@@ -298,6 +296,75 @@ Configurar alertas desde Grafana vía Gmail implica varios pasos. Aquí te propo
 3. Revisa la cuenta de correo electrónico de Gmail para confirmar que has recibido la alerta.
 
 ¡Listo! Ahora deberías tener configuradas las alertas desde Grafana vía Gmail. Asegúrate de monitorear regularmente las alertas y ajustar la configuración según sea necesario.
+
+b. Alertas via Slack
+
+# Configuración de Alertas desde Grafana vía Slack
+
+## Requisitos Previos
+
+1. **Grafana Instalado**: Asegúrate de tener Grafana instalado y configurado en tu servidor.
+
+2. **Cuenta de Slack**: Necesitarás una cuenta en Slack y permisos para crear integraciones.
+
+3. **Canal en Slack**: Crea un canal en Slack donde recibirás las alertas.
+
+## Paso 1: Configuración de Webhook en Slack
+
+1. Inicia sesión en tu cuenta de Slack.
+
+2. Dirígete al canal en el que deseas recibir las alertas.
+
+3. Haz clic en "Configuración del canal" > "Configuración de aplicaciones" > "Agregar una aplicación".
+
+4. Busca "Incoming Webhooks" y selecciona la aplicación.
+
+5. Activa los Webhooks para el canal seleccionado y copia el Webhook URL generado.
+
+## Paso 2: Configuración de Notificaciones en Grafana
+
+1. Inicia sesión en Grafana.
+
+2. Navega a "Configuration" > "Notification channels".
+
+3. Haz clic en "Add Channel" y selecciona "Slack" como tipo de canal.
+
+4. Completa los detalles del canal:
+
+   - **Type**: Elige "Slack".
+   - **Name**: Un nombre descriptivo para el canal.
+   - **Url**: Pega el Webhook URL que copiaste anteriormente.
+   - **Mention**: (Opcional) Puedes mencionar a usuarios o canales específicos en Slack.
+
+5. Haz clic en "Add" para guardar la configuración.
+
+## Paso 3: Configuración de Alertas en Grafana
+
+1. Abre o crea un tablero en Grafana.
+
+2. Añade un panel que desees supervisar.
+
+3. Haz clic en el panel y selecciona "Edit".
+
+4. En la pestaña "Alert", haz clic en "Add Alert".
+
+5. Configura las condiciones de la alerta según tus necesidades.
+
+6. En la sección "Send to", elige el canal de notificación de Slack que configuraste previamente.
+
+7. Define las opciones de notificación, como el intervalo de repetición y la duración de la condición de alerta.
+
+8. Haz clic en "Apply" para guardar la configuración del panel.
+
+## Paso 4: Prueba de Alertas
+
+1. Haz clic en "Apply" para guardar los cambios en el tablero.
+
+2. Simula una condición de alerta para verificar si las notificaciones se envían correctamente.
+
+3. Verifica el canal de Slack para confirmar que has recibido la alerta.
+
+¡Enhorabuena! Ahora deberías tener configuradas las alertas desde Grafana vía Slack. Asegúrate de monitorear regularmente las alertas y ajustar la configuración según sea necesario.
 
 ### Dockerizar aplicacion de amauta
 
