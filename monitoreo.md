@@ -196,7 +196,7 @@ El monitoreo de sistemas y aplicaciones es esencial para garantizar la confiabil
    docker restart grafana
    ```
 
-### Monitoreo de servidores
+# Monitoreo de servidores
 
 a. Agregar monitoreo con Node Exporter
 
