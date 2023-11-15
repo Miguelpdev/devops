@@ -390,4 +390,4 @@ Y luego en crontab, agregar la tarea para que al reiniciar el servidor se ejecut
 @reboot /lost+found/start_monitor.sh
 ```
 
-Al realizar esta configuracion se podra preveer ante cualquier caida del servidor. Y asi al prender el servidor el contenedor de monitoreo se iniciara.
+Al realizar esta configuracion se podra preveer ante cualquier caida del servidor. Y asi iniciara el contenedor de monitoreo.
