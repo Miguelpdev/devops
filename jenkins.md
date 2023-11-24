@@ -88,3 +88,10 @@ RUN apk add maven
 # # Cambia nuevamente al usuario jenkins
 
 USER jenkins
+
+docker volume ls
+docker volume rm jenkins-data
+
+sudo -i
+
+sudo docker exec -it jenkins /bin/bash
