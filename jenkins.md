@@ -85,7 +85,7 @@ RUN apk add maven
 
 #
 
-# # Cambia nuevamente al usuario jenkins
+## Cambia nuevamente al usuario jenkins
 
 USER jenkins
 
@@ -95,3 +95,37 @@ docker volume rm jenkins-data
 sudo -i
 
 sudo docker exec -it jenkins /bin/bash
+
+## Docker compose
+
+```
+services:
+    jenkins:
+       build: .
+       restart: on-failure
+       privileged: true
+       container_name: jenkins
+       user: root
+       volumes:
+        - jenkins-home:/var/jenkins_home
+        - ./jenkins:/var/jenkins_home/.ssh
+
+       ports:
+        - 8080:8080
+        - 50000:50000
+
+volumes:
+    jenkins-home:
+```
+
+## Dockerfile
+
+```
+FROM jenkins/jenkins:lts-alpine
+# # # Cambia al usuario root para instalar herramientas adicionales
+USER root
+RUN apk update && \
+  apk add openjdk11
+RUN apk add maven
+USER jenkins
+```

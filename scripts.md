@@ -85,3 +85,25 @@ firewall-cmd --reload
 ```
 docker run -d -p 9100:9100 -v /root/recaudacion/node_exporter.yml:/etc/node_exporter/node_exporter.yml --name=node-exporter prom/node-exporter --web.listen-address="0.0.0.0:9 100"
 ```
+
+## Conectarse por ssh sin paswword
+
+Desde el lado cliente, no ingresar niguna frase
+
+```
+ssh-keygen -t rsa
+```
+
+```
+ssh-copy-id -i /root/.ssh/id_rsa.pub adminadunalm@172.16.0.108
+```
+
+## Para copiar id desde cliente a servidor
+
+```
+scp /var/jenkins_home/workspace/amanita-prod/target/amauta.jar adminadunalm@172.16.0.108:/home/adminadunalm/jenkins
+```
+
+```
+sudo firewall-cmd --list-ports
+```
