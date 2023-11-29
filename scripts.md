@@ -83,7 +83,7 @@ firewall-cmd --reload
 ```
 
 ```
-docker run -d -p 9100:9100 -v /root/recaudacion/node_exporter.yml:/etc/node_exporter/node_exporter.yml --name=node-exporter prom/node-exporter --web.listen-address="0.0.0.0:9 100"
+docker run -d -p 9100:9100 -v /root/recaudacion/node_exporter.yml:/etc/node_exporter/node_exporter.yml --name=node-exporter prom/node-exporter --web.listen-address="0.0.0.0:9100"
 ```
 
 ## Conectarse por ssh sin paswword
