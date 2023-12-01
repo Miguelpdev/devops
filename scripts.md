@@ -107,3 +107,26 @@ scp /var/jenkins_home/workspace/amanita-prod/target/amauta.jar adminadunalm@172.
 ```
 sudo firewall-cmd --list-ports
 ```
+
+## Redis
+
+```
+vim /etc/redis.conf
+```
+
+### cambiar lo siguiente
+
+```
+bind 0.0.0.0
+requirepass tu_nueva_contraseña
+```
+
+```
+redis-cli -h 172.16.50.156 -a password
+```
+
+## Para ver puertos abiertos
+
+```
+ss -plnt
+```
