@@ -5,7 +5,7 @@
 ### CentOS Linux 8 - AppStream
 
 ```
-udo sed -i -e "s|mirrorlist=|#mirrorlist=|g" /etc/yum.repos.d/CentOS-*
+sudo sed -i -e "s|mirrorlist=|#mirrorlist=|g" /etc/yum.repos.d/CentOS-*
 ```
 
 ```

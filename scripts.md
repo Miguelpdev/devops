@@ -130,3 +130,9 @@ redis-cli -h 172.16.50.156 -a password
 ```
 ss -plnt
 ```
+
+## Para ver puerto si esta activo
+
+```
+nmap -p 8080 localhost
+```
