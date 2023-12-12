@@ -11,7 +11,13 @@ user=root
 password=test
 ```
 
-### Crear archivo docker-compose.yml
+### Dockerfile
+
+```
+docker run -d -p 9104:9104 -v $(pwd)/.my.cnf:/cfg/.my.cnf prom/mysqld-exporter --config.my-cnf=/cfg/.my.cnf
+```
+
+### O Crear archivo docker-compose.yml
 
 ```
 version: '3'
@@ -42,7 +48,7 @@ services:
   - job_name: 'mysql-test'
     metrics_path: '/metrics'
     static_configs:
-    - targets: ['172.16.0.147:9104']
+    - targets: ['172.16.*.*:9104']
 ```
 
 ### Dasboard grafana mysqld exporter
