@@ -1,2 +1,2 @@
 # devops
-Files for config nginx
+Files for config devops
