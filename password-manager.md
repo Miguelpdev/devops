@@ -19,7 +19,7 @@ deactivate
 ### Enter the root directory of the project and run
 
 ```
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 ```
