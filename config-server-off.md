@@ -22,4 +22,14 @@ En caso este inactivo iniciar el servicio
 systemctl start mysqld
 ```
 
-## Reiniciar el servicio de jenkins
+## Reiniciar el aplicacion web desde jenkins
+
+## En caso haya problemas con redis
+
+```
+tail -f /var/log/jenkins/------.log
+```
+
+```
+redis-cli flushall
+```
