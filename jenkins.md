@@ -60,34 +60,30 @@ docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 
 Copia la contraseña y pégala en la interfaz web de Jenkins para desbloquear y configurar Jenkins.
 
-# Usa la imagen oficial de Jenkins basada en Alpine
+Usa la imagen oficial de Jenkins basada en Alpine
 
+```
 FROM jenkins/jenkins:lts-alpine
 
-#
-
-# # Cambia al usuario root para instalar herramientas adicionales
+Cambia al usuario root para instalar herramientas adicionales
 
 USER root
 
-#
-
-# # Instala OpenJDK 11 (puedes cambiar la versión si es necesario)
+Instala OpenJDK 11 (puedes cambiar la versión si es necesario)
 
 RUN apk update && \
  apk add openjdk11
 
-#
-
-# # Instala Maven (puedes cambiar la versión si es necesario)
+Instala Maven (puedes cambiar la versión si es necesario)
 
 RUN apk add maven
+```
 
-#
+Cambia nuevamente al usuario jenkins
 
-## Cambia nuevamente al usuario jenkins
-
+```
 USER jenkins
+```
 
 docker volume ls
 docker volume rm jenkins-data
