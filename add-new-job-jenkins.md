@@ -41,9 +41,9 @@ ssh-copy-id -i ~/.ssh/id_rsa.pub usuario@amauta-test.lamolina.edu.pe
 
 - **Reemplaza** `usuario` con el nombre de usuario SSH que usarás para conectarte a `amauta-test`.
 
-```
+**IMPORTANTE**
+
 En este caso la clave publica fue cambiada, asi que copia la clave desde otro servidor que ya tenga acceso a `maipi-test` como por ejemplo `amauta` desde el archivo `~/.ssh/authorized_keys` al servidor que quieras agregar a la misma direccion y archivo
-```
 
 #### **b. Alternativa Manual**
 
