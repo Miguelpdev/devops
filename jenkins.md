@@ -65,30 +65,39 @@ Usa la imagen oficial de Jenkins basada en Alpine
 ```
 FROM jenkins/jenkins:lts-alpine
 
-Cambia al usuario root para instalar herramientas adicionales
+#Cambia al usuario root para instalar herramientas adicionales
 
 USER root
 
-Instala OpenJDK 11 (puedes cambiar la versión si es necesario)
+#Instala OpenJDK 11 (puedes cambiar la versión si es necesario)
 
 RUN apk update && \
  apk add openjdk11
 
-Instala Maven (puedes cambiar la versión si es necesario)
+#Instala Maven (puedes cambiar la versión si es necesario)
 
 RUN apk add maven
 
-Cambia nuevamente al usuario jenkins
+#Cambia nuevamente al usuario jenkins
 
 USER jenkins
 ```
 
+- Eliminar datos de imagen si no se vuelven a cargar configuraciones ya que se quedo en el cache de la data.
+
+```
 docker volume ls
 docker volume rm jenkins-data
+```
 
-sudo -i
+- Comando para actuar como usuario root
+  `sudo -i`
 
+- Comando para conectarse por bash al contenedor docker
+
+```
 sudo docker exec -it jenkins /bin/bash
+```
 
 ## Docker compose
 

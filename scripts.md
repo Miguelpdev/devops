@@ -136,3 +136,25 @@ ss -plnt
 ```
 nmap -p 8080 localhost
 ```
+
+## Oracle issues
+
+- First check ip from pc(server)
+- Second check if you connected to titan server
+
+```
+c:\Windows\System32\drivers\etc
+```
+
+- Change ip en hostname file
+
+```
+quinua 172.16.0.ip
+```
+
+- Introduce session password
+
+```
+user: informatica
+password: wifi
+```
